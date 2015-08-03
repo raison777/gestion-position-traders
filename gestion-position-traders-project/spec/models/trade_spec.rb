@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: trades
+#
+#  id         :integer          not null, primary key
+#  id_trader  :integer
+#  id_action  :integer
+#  quantity   :integer
+#  date       :date
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 describe Trade do

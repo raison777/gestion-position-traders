@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: traders
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 describe Trader do
