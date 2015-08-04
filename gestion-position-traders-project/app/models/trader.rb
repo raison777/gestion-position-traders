@@ -12,5 +12,7 @@ class Trader < ActiveRecord::Base
   has_many :trades
   has_many :action, through: :trades
 
-  validates :name, presence: true, :length => {:minimum => 3, :maximum => 140}
+  validates :name, presence: true,
+            :length => {:minimum => 3, :maximum => 140},
+            :uniqueness => true
 end

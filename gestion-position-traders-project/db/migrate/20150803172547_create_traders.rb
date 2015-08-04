@@ -5,6 +5,6 @@ class CreateTraders < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :traders, :name
+    add_index :traders, :name, :unique => true
   end
 end
