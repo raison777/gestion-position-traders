@@ -1,0 +1,26 @@
+### Mes impressions
+
+## JOUR 1
+# Les classes modèles
+Rails propose une génération automatiques de modèles performantes. Les classes créees héritent de ActiveRecords, cet héritage permet d'embarquer des méthodes CRUD.
+
+Ce qui est plus ambigüe, c'est l'appellation models. A mon sens, ces classes ne sont pas des composants métiers tels qu'on pourrait le croire avec l'appellation "models" mais plutôt des DAO.
+
+L'idéal pour bien respecter la séparation triple couche du MVC serait donc de séparer les composants métiers des DAO (ici les classes models). Je vais d'abord m'axer sur le fonctionnel mais j'y reviendrais en premier lieu.
+
+
+
+# Le faible typage
+Malheuresement, Ruby n'est pas fortement typé. J'apprécie le fort typage pour sa rigueur, aussi je suis un peu perdu quand le type d'un objet n'est pas clairement déterminé. Par exemple, j'aimerais faire un service CRUD générique(bien qu'il est peu de sens ici) puis en faire hériter différents service. Mais sans typages fort, pas de généricité (ou peut-être trop de généricité?).
+Il faudra que je réfléchisse pour voir si ce type de service est envisageable. Creuser pour voir avec un test sur variable de constructeur pour vérifier que mon objet est bien un modèle.
+
+
+
+# ISP (Interface Segregation Principle)
+Habituellement, j'utilise massivement l'ISP, cependant, aucun mécanisme ruby semble obligée un classe héritant d'une autre (ou incluant un module) à redéfinir les méthodes de la classe parente.
+L'ISP semble donc avoir une place plus mince. 
+
+
+
+# Cacul de la somme agrégée
+Pour ce calcul, je voulais décharger le programme et laisser le SGBD s'en occupper en tant que champ calculé. Toutefois il semblerait que ce n'est pas possible dans SQLite. Je vais donc probablement le déporter dans le modèle. C'est embêtant car le tri va également devoir être fait côté logiciel, ce qui n'est pas optimal.
