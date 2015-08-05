@@ -14,4 +14,8 @@ class TraderService
   def find_by_name(name)
     Trader.find_by name: name
   end
+
+  def find_all()
+    Trader.all
+  end
 end

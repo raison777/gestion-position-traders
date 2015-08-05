@@ -13,7 +13,7 @@ L'idéal pour bien respecter la séparation triple couche du MVC serait donc de 
 # Le faible typage
 Malheuresement, Ruby n'est pas fortement typé. J'apprécie le fort typage pour sa rigueur, aussi je suis un peu perdu quand le type d'un objet n'est pas clairement déterminé. Par exemple, j'aimerais faire un service CRUD générique(bien qu'il est peu de sens ici) puis en faire hériter différents service. Mais sans typages fort, pas de généricité (ou peut-être trop de généricité?).
 Il faudra que je réfléchisse pour voir si ce type de service est envisageable. Creuser pour voir avec un test sur variable de constructeur pour vérifier que mon objet est bien un modèle.
-
+-EDIT1 - PISTE : En utilisant le mot clé 'extend' avec les modules, on fait hériter les méthodes du module en tant que méthodes de classe. (!=Héritage?)
 
 
 # ISP (Interface Segregation Principle)

@@ -9,11 +9,10 @@
 #
 
 class Action < ActiveRecord::Base
-  attr_accessor :name
   has_many :trades
-  has_many :trader, through: :trades
+  has_many :traders, through: :trades
 
   validates :name, presence: true,
             :length => {:minimum => 3, :maximum => 140},
-            :uniquenes => true
+            :uniqueness => true
 end

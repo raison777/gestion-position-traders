@@ -9,8 +9,8 @@
 #
 
 class Trader < ActiveRecord::Base
-  has_many :trades
-  has_many :action, through: :trades
+  has_many :trades, dependent: :destroy
+  has_many :actions, through: :trades
 
   validates :name, presence: true,
             :length => {:minimum => 3, :maximum => 140},

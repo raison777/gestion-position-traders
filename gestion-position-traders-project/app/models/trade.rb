@@ -3,20 +3,23 @@
 # Table name: trades
 #
 #  id         :integer          not null, primary key
-#  id_trader  :integer
-#  id_action  :integer
 #  quantity   :integer
 #  date       :date
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  trader_id  :integer
+#  action_id  :integer
 #
 
+
 class Trade < ActiveRecord::Base
+  default_scope {order('created_at DESC')}
+
   belongs_to :action
   belongs_to :trader
 
-  validates :id_trader, presence: true
-  validates :id_action, presence: true
+  validates :trader_id, presence: true
+  validates :action_id, presence: true
   validates :quantity, :numericality =>{:greater_than => 0}
   validates :date, presence: true
 end
