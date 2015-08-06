@@ -1,0 +1,16 @@
+<h1>Listes des traders</h1>
+<hr />
+<p>Voici la liste des traders</p>
+
+<table>
+<% @traders.each do |t| -%>
+    <tr>
+      <td>
+        <b><%= t.name %></b>
+      </td>
+      <td>
+        <span>(Somme agrégée des ventes)€</span>
+      </td>
+    </tr>
+<% end -%>
+</table>

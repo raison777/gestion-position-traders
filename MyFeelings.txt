@@ -22,5 +22,8 @@ L'ISP semble donc avoir une place plus mince.
 
 
 
-# Cacul de la somme agrégée
+# Calcul de la somme agrégée
 Pour ce calcul, je voulais décharger le programme et laisser le SGBD s'en occupper en tant que champ calculé. Toutefois il semblerait que ce n'est pas possible dans SQLite. Je vais donc probablement le déporter dans le modèle. C'est embêtant car le tri va également devoir être fait côté logiciel, ce qui n'est pas optimal.
+
+# Le TDD
+Pour ce projet j'utilise le TDD, mon développement apparaît vraiment guidé par mes tests, j'ai hâte de voir si à la fin le TDD aura prévenu les écarts et les bugs les plus importants.

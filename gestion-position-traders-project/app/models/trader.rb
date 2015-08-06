@@ -15,4 +15,17 @@ class Trader < ActiveRecord::Base
   validates :name, presence: true,
             :length => {:minimum => 3, :maximum => 140},
             :uniqueness => true
+
+
+  def self.create_trader(id, name)
+    trader = Trader.new
+    if(!id.nil? &&id > 0)
+      trader.id = id
+    end
+    if(!name.nil?)
+      trader.name = name
+    end
+    return trader
+  end
+
 end
