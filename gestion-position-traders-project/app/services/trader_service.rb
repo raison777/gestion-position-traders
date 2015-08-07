@@ -27,4 +27,14 @@ class TraderService
   def find_all()
     Trader.all
   end
+
+  def list_with_aggregate_sum
+        Trader.pluck("t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ORDER BY agg DESC;")
+  end
+
+  def get_aggregate_sum(trader)
+    if(trader.is_a?(Trader) && !trader.id.nil?)
+      Trader.pluck("SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades WHERE trades.trader_id = #{trader.id} ORDER BY agg DESC;")
+    end
+  end
 end

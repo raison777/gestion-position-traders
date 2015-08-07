@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805170818) do
+ActiveRecord::Schema.define(version: 20150807171904) do
 
   create_table "a_ctions", force: :cascade do |t|
     t.string   "name"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150805170818) do
     t.datetime "updated_at", null: false
     t.integer  "trader_id"
     t.integer  "action_id"
+    t.float    "price"
   end
 
   add_index "trades", ["date"], name: "index_trades_on_date"

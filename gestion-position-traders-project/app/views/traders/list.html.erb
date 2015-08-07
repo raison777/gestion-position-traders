@@ -3,13 +3,13 @@
 <p>Voici la liste des traders</p>
 
 <table>
-<% @traders.each do |t| -%>
+<% @lines.each do |t| -%>
     <tr>
       <td>
-        <b><%= t.name %></b>
+        <b><%= t[1] %></b>
       </td>
       <td>
-        <span>(Somme agrégée des ventes)€</span>
+        <span><%=t[2] %>€</span>
       </td>
     </tr>
 <% end -%>

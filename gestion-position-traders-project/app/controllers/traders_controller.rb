@@ -1,7 +1,7 @@
 class TradersController < ApplicationController
   def list
     trader_service = TraderService.new
-    @traders = trader_service.find_all
+    @lines = trader_service.list_with_aggregate_sum
   end
 
   def show

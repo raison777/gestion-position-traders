@@ -9,8 +9,8 @@
 #  updated_at :datetime         not null
 #  trader_id  :integer
 #  action_id  :integer
+#  price      :float
 #
-
 
 class Trade < ActiveRecord::Base
   default_scope {order('created_at DESC')}

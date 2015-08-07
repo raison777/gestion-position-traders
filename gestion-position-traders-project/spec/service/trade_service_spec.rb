@@ -6,7 +6,7 @@ describe TradeService do
     @trader = Trader.create(:id=>9999, :name=>'TestTraderForTrade')
     @action = Action.create(:id=>9999, :name=>'TestActionForTrade')
     @traderService = TradeService.new
-    Trade.create(:trader_id=>@trader.id, :action_id=>@action.id, :quantity => 100, :date=> Time.now)
+    Trade.create(:trader_id=>@trader.id, :action_id=>@action.id, :quantity => 100, :price=>120.5, :date=> Time.now)
   end
 
   it 'persist a new trade for an action by a trader' do
