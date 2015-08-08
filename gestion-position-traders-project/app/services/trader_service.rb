@@ -11,7 +11,7 @@ class TraderService
     if trader.is_a? Trader
     trader.destroy!
     elsif trader.is_a? Integer
-      trader = Trader.create_trader(trader, nil)
+      trader = Trader.find(trader)
       trader.destroy!
     end
   end

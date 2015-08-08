@@ -15,4 +15,5 @@ class Action < ActiveRecord::Base
   validates :name, presence: true,
             :length => {:minimum => 3, :maximum => 140},
             :uniqueness => true
+
 end

@@ -15,6 +15,16 @@ class ActionService
     action.save()
   end
 
+  def delete_action(action)
+    if action.is_a? Action
+      action.destroy
+    elsif action.is_a? Integer
+      model = Action.find action
+      if !model.nil?
+        model.destroy
+      end #else raise error
+    end
+  end
 
 
 end

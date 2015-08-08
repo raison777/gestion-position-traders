@@ -30,6 +30,13 @@ describe TraderService do
     expect(result).to_not be_nil
   end
 
+  it 'delete a trader with its id' do
+    tmp_trader = @trader_service.register_trader 'tempTrader'
+    result = @trader_service.delete_trader(tmp_trader.id)
+    puts result
+  end
+
+
   it 'select the test trader and rename it, twice' do
     upd_name = 'updatedTestTrader'
 

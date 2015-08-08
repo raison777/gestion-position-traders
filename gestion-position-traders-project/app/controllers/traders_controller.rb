@@ -39,7 +39,7 @@ class TradersController < ApplicationController
   def update
     params.require(:id, :name)
     trader_service = TraderService.new
-    trader = Trader.create_trader params[:id], params[:name]
+    trader = Trader.create_or_retrieve_trader params[:id], params[:name]
     trader_service.update_trader(trader)
     redirect_to show, :id => trader.id
   end
@@ -47,7 +47,7 @@ class TradersController < ApplicationController
   def delete
     params.require(:id)
     trader_service = TraderService.new
-    trader_service.delete_trader(Trader.create_trader params[:id], params[:name])
+    trader_service.delete_trader(Trader.create_or_retrieve_trader params[:id], params[:name])
     redirect_to list
   end
 
