@@ -1,3 +1,12 @@
-<h1>Listes des traders</h1>
+<h1>Ajouter un trader</h1>
 <hr />
-<p>Voici la liste des traders</p>
+<p>Merci de remplir le formulaire ci-dessous</p>
+<%= form_for @trader, :url=>{:action => 'create'} do |t|%>
+    <div class="fields">
+      <%= t.label :name %>
+      <%= t.text_field :name %>
+    </div>
+    <div class="actions">
+      <%= t.submit 'Register' %>
+    </div>
+<% end %>

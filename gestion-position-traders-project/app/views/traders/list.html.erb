@@ -3,14 +3,18 @@
 <p>Voici la liste des traders</p>
 
 <table>
-<% @lines.each do |t| -%>
-    <tr>
-      <td>
-        <b><%= t[1] %></b>
-      </td>
-      <td>
-        <span><%=t[2] %>€</span>
-      </td>
-    </tr>
-<% end -%>
+  <% @lines.each do |t| -%>
+      <tr>
+        <td>
+          <b><%= t[1] %></b>
+        </td>
+        <td>
+          <%    if !t[2].nil? %>
+              <span><%=t[2] %>€</span>
+          <%    else %>
+              <span> n/a </span>
+          <%    end %>
+        </td>
+      </tr>
+  <% end -%>
 </table>

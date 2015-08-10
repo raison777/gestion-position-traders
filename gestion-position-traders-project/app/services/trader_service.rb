@@ -1,10 +1,18 @@
 class TraderService
   def update_trader(trader)
-    trader.save()
+    storedTrader = self.find trader.id
+    if(storedTrader.nil?)
+      #"raise"
+    end
+    storedTrader.name = trader.name
+    storedTrader.save()
   end
 
-  def register_trader(name)
-    Trader.create(:name => name)
+  def register_trader(trader)
+    if(trader.name.nil?)
+      #raise
+    end
+    Trader.create(:name => trader.name)
   end
 
   def delete_trader(trader)
@@ -29,12 +37,23 @@ class TraderService
   end
 
   def list_with_aggregate_sum
-        Trader.pluck("t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ORDER BY agg DESC;")
+    result = Dac.execute_query('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY trader_id ORDER BY agg DESC;')
+    #result = Trade.find_by_sql('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY trader_id ORDER BY agg DESC;')
+    puts 'result here : '
+    p result
+    return result
   end
 
   def get_aggregate_sum(trader)
     if(trader.is_a?(Trader) && !trader.id.nil?)
-      Trader.pluck("SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades WHERE trades.trader_id = #{trader.id} ORDER BY agg DESC;")
+      Trader.pluck('SELECT SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id WHERE trades.trader_id = ? GROUP BY trader_id ORDER BY agg DESC;', trader.id)
     end
+  end
+
+  def create_trader_with_array(array)
+    if(array[:name].nil?)
+      #raise newException
+    end
+    Trader.new(:name => array[:name])
   end
 end
