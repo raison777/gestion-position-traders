@@ -1,0 +1,19 @@
+<h1>Listes des traders</h1>
+<hr />
+<p>Voici la liste des traders</p>
+<table>
+  <% @lines.each do |t| -%>
+        <tr>
+          <td>
+            <%= link_to action: 'show', id: t[0] do -%><b><%= t[1] %></b><% end %>
+          </td>
+          <td>
+            <%    if !t[2].nil? %>
+                <span><%=t[2] %>€</span>
+            <%    else %>
+                <span> n/a </span>
+            <%    end %>
+          </td>
+        </tr>
+  <% end -%>
+</table>

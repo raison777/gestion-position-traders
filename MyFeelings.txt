@@ -1,6 +1,5 @@
 ### Mes impressions
 
-## JOUR 1
 # Les classes modèles
 Rails propose une génération automatiques de modèles performantes. Les classes créees héritent de ActiveRecords, cet héritage permet d'embarquer des méthodes CRUD.
 
@@ -27,3 +26,11 @@ Pour ce calcul, je voulais décharger le programme et laisser le SGBD s'en occup
 
 # Le TDD
 Pour ce projet j'utilise le TDD, mon développement apparaît vraiment guidé par mes tests, j'ai hâte de voir si à la fin le TDD aura prévenu les écarts et les bugs les plus importants.
+
+# Ce qu'il reste à faire
+Je plannifie ici la suite de mes actions :
+- appréhender et mettre en place des formulaires pour l'ajout/modification d'entités
+- vérifier les meilleures pratiques en termes de validation.
+- apporter un léger côté estéthique avec CSS
+- Gestion des exceptions
+- Refactoring & Optimisations

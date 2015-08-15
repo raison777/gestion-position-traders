@@ -1,4 +1,9 @@
 class TradeService
+
+  def find_all
+    Dac.execute_query('SELECT t.id, t.date, t.quantity, t.price, tr.name as trader_name, a.name as action_name FROM trades as t INNER JOIN traders as tr ON t.trader_id = tr.id INNER JOIN actions as a ON t.action_id = a.id ORDER BY t.date')
+  end
+
   def save_trade(trader, action, quantity, price)
     Trade.create(:trader_id => trader.id,
     :action_id => action.id,

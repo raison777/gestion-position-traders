@@ -9,7 +9,7 @@ describe TraderService do
   end
 
   it 'persist a trader object in DB' do
-    result = @trader_service.register_trader('RspecTrader')
+    result = @trader_service.register_trader(Trader.new(:name=>'test'))
     expect(result).to_not be_nil
   end
 
@@ -31,7 +31,7 @@ describe TraderService do
   end
 
   it 'delete a trader with its id' do
-    tmp_trader = @trader_service.register_trader 'tempTrader'
+    tmp_trader = @trader_service.register_trader Trader.new(:name=>'trader_service_test')
     result = @trader_service.delete_trader(tmp_trader.id)
     puts result
   end

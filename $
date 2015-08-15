@@ -1,0 +1,5 @@
+## Remarque et perspectives d'évolution
+
+Dans la table trade, le champ date est inutile : rails ajoute un champ created_at. Il peut devenir intéressant si on a une date à stocker tel que la date d'encaissement réelle de l'argent véhiculé par la transaction.
+
+## TODO : Gestion des exception + JQuery ajax

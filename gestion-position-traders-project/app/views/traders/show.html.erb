@@ -1,25 +1,13 @@
 <h1><%= @trader.name -%></h1>
 <h2>trader n°<%= @trader.id -%></h2>
 <hr />
-<h3>Ventes réalisées par le trader :</h3>
-<table>
-  <thead>
-    <tr>
-      <th>
-        Date
-      </th>
-      <th>
-        action
-      </th>
-      <th>quantité</th>
-    </tr>
-  </thead>
-<% @sells.each do |s| -%>
-      <tr>
-        <td><%= s.date %></td>
-        <td><%= s.action.name %></td>
-        <td><%= s.quantity %></td>
-        <td><%= s.price %></td>
-      </tr>
-<% end -%>
-</table>
+    <table>
+      <% @sells.each do |s| -%>
+          <tr>
+            <td><%= s.date %></td>
+            <td><%= s.action.name %></td>
+            <td><%= s.quantity %></td>
+            <td><%= s.price %></td>
+          </tr>
+      <% end -%>
+    </table>

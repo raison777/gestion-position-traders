@@ -1,2 +1,16 @@
-<h1>Actions#new</h1>
-<p>Find me in app/views/actions/new.html.erb</p>
+
+<h1>Ajouter une action</h1>
+<hr />
+<% flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, class: name %>
+<% end -%>
+<p>Merci de remplir le formulaire ci-dessous</p>
+<%= form_for Action.new, as: :act_item, :url=>{:action => 'create'} do |a|%>
+    <div class="fields">
+      <%= a.label :name %>
+      <%= a.text_field :name %>
+    </div>
+    <div class="actions">
+      <%= a.submit 'Register' %>
+    </div>
+<% end %>

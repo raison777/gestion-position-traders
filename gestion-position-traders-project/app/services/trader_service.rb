@@ -29,7 +29,11 @@ class TraderService
   end
 
   def find_by_name(name)
-    Trader.find_by name: name
+    result = Trader.find_by name: name
+    if(result.nil?)
+      #raise
+    end
+    return result
   end
 
   def find_all()
@@ -37,8 +41,7 @@ class TraderService
   end
 
   def list_with_aggregate_sum
-    result = Dac.execute_query('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY trader_id ORDER BY agg DESC;')
-    #result = Trade.find_by_sql('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY trader_id ORDER BY agg DESC;')
+    result = Dac.execute_query('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY t.id ORDER BY agg DESC;')
     puts 'result here : '
     p result
     return result
@@ -46,13 +49,13 @@ class TraderService
 
   def get_aggregate_sum(trader)
     if(trader.is_a?(Trader) && !trader.id.nil?)
-      Trader.pluck('SELECT SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id WHERE trades.trader_id = ? GROUP BY trader_id ORDER BY agg DESC;', trader.id)
+      Dac.execute_query('SELECT SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id WHERE trades.trader_id = ? GROUP BY t.id ORDER BY agg DESC;', trader.id)
     end
   end
 
   def create_trader_with_array(array)
     if(array[:name].nil?)
-      #raise newException
+      #raise newException + validation plus poussée (par champs)
     end
     Trader.new(:name => array[:name])
   end

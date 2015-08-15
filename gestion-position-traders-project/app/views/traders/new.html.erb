@@ -1,7 +1,10 @@
 <h1>Ajouter un trader</h1>
 <hr />
+<% flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, class: name %>
+<% end -%>
 <p>Merci de remplir le formulaire ci-dessous</p>
-<%= form_for @trader, :url=>{:action => 'create'} do |t|%>
+<%= form_for Trader.new, :url=>{:action => 'create'} do |t|%>
     <div class="fields">
       <%= t.label :name %>
       <%= t.text_field :name %>

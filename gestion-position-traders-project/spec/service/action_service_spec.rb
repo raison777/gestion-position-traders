@@ -9,7 +9,7 @@ describe ActionService do
   end
 
   it 'persist an action object in DB' do
-    result = @action_service.add_action('RspecAction')
+    result = @action_service.add_action(Action.new(:name=>'RspecAction'))
     expect(result).to_not be_nil
   end
 

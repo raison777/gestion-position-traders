@@ -1,6 +1,6 @@
 class ActionService
-  def add_action(name)
-    Action.create(:name => name)
+  def add_action(action)
+    action.save
   end
 
   def find_all()
@@ -8,7 +8,11 @@ class ActionService
   end
 
   def find_by_name(name)
-    Action.find_by(:name => name)
+    result = Action.find_by(:name => name)
+    if(result.nil?)
+      #raise Exception
+    end
+    return result
   end
 
   def update_action(action)
@@ -26,5 +30,11 @@ class ActionService
     end
   end
 
-
+  def create_action_with_array(array)
+    p array
+    if array[:name].nil?
+      #raise newException + validation plus poussée (par champs)
+    end
+    Action.new(:name => array[:name])
+  end
 end
