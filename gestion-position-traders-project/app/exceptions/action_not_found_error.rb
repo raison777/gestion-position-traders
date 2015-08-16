@@ -1,0 +1,2 @@
+class ActionNotFoundError < StandardError
+end

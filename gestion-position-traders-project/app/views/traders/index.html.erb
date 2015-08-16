@@ -1,8 +1,11 @@
-<h1>Listes des traders</h1>
-<hr />
-<p>Voici la liste des traders</p>
-<table>
-  <% @lines.each do |t| -%>
+<h2>Listes des traders</h2>
+<div class='table-section'>
+  <table>
+    <tr>
+      <th>Nom du trader</th>
+      <th>Somme agrégée des ventes</th>
+    </tr>
+    <% @lines.each do |t| -%>
         <tr>
           <td>
             <%= link_to action: 'show', id: t[0] do -%><b><%= t[1] %></b><% end %>
@@ -11,9 +14,14 @@
             <%    if !t[2].nil? %>
                 <span><%=t[2] %>€</span>
             <%    else %>
-                <span> n/a </span>
+                <span> aucune vente effectuée </span>
             <%    end %>
           </td>
         </tr>
-  <% end -%>
-</table>
+    <% end -%>
+  </table>
+</div>
+
+<div class="table-actions">
+  <%= link_to :action=> :new do %>+Ajouter<% end %>
+</div>

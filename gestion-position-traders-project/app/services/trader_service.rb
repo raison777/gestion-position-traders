@@ -1,26 +1,23 @@
 class TraderService
   def update_trader(trader)
-    storedTrader = self.find trader.id
-    if(storedTrader.nil?)
-      #"raise"
-    end
-    storedTrader.name = trader.name
-    storedTrader.save()
+    stored_trader = self.find trader.id
+    raise TraderNotFoundError, "The trader #{trader} doesn't exist." if stored_trader.nil?
+    stored_trader.name = trader.name
+    stored_trader.save()
   end
 
   def register_trader(trader)
-    if(trader.name.nil?)
-      #raise
-    end
+    raise ArgumentError, 'You have to provide a name for the new trader' if trader.blank?
     Trader.create(:name => trader.name)
   end
 
   def delete_trader(trader)
     if trader.is_a? Trader
-    trader.destroy!
+    trader.destroy
     elsif trader.is_a? Integer
       trader = Trader.find(trader)
-      trader.destroy!
+      raise TraderNotFoundError, "The trader #{trader} doesn't exist." if trader.nil?
+      trader.destroy
     end
   end
 
@@ -30,9 +27,7 @@ class TraderService
 
   def find_by_name(name)
     result = Trader.find_by name: name
-    if(result.nil?)
-      #raise
-    end
+    raise TraderNotFoundError, "cannot find any trader for name #{name}" if result.nil?
     return result
   end
 
@@ -41,22 +36,12 @@ class TraderService
   end
 
   def list_with_aggregate_sum
-    result = Dac.execute_query('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY t.id ORDER BY agg DESC;')
-    puts 'result here : '
-    p result
-    return result
+    Dac.execute_query('SELECT t.id, t.name, SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id GROUP BY t.id ORDER BY agg DESC;')
   end
 
-  def get_aggregate_sum(trader)
-    if(trader.is_a?(Trader) && !trader.id.nil?)
-      Dac.execute_query('SELECT SUM(trades.quantity * trades.price) AS agg FROM traders as t LEFT OUTER JOIN trades ON trader_id = t.id WHERE trades.trader_id = ? GROUP BY t.id ORDER BY agg DESC;', trader.id)
-    end
+
+  def suggest(term)
+    Trader.select(:id, :name).where('traders.name LIKE ?', term + '%')
   end
 
-  def create_trader_with_array(array)
-    if(array[:name].nil?)
-      #raise newException + validation plus poussée (par champs)
-    end
-    Trader.new(:name => array[:name])
-  end
 end

@@ -1,16 +1,28 @@
-<h1>Listes des transactions</h1>
-<hr />
+<h2>Listes des transactions</h2>
+<div class='table-section'>
+  <table>
+    <tr>
+      <th>N°</th>
+      <th>Date de vente</th>
+      <th>Quantité vendue</th>
+      <th>Prix d'une action</th>
+      <th>Trader en charge</th>
+      <th>Action vendue</th>
+    </tr>
+    <% @trades.each do |t| %>
+        <tr>
+          <td><%= t[0] %></td>
+          <td><%= t[1] %></td>
+          <td><%= t[2] %></td>
+          <td><%= t[3] %>€</td>
+          <td><%= t[4] %></td>
+          <td><%= t[5] %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>
 
-<table>
-  <% @trades.each do |t| %>
-      <tr>
-        <td><%= t[0] %></td>
-        <td><%= t[1] %></td>
-        <td><%= t[2] %></td>
-        <td><%= t[3] %>€</td>
-        <td><%= t[4] %></td>
-        <td><span>---- pour ---></span></td>
-        <td><%= t[5] %></td>
-      </tr>
-  <% end %>
-</table>
+
+<div class="table-actions">
+  <%= link_to :action=> :new do %>+Ajouter<% end %>
+</div>

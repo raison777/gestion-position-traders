@@ -2,6 +2,7 @@
 class ActionsController < ApplicationController
 
   def initialize
+    super()
     @action_service = ActionService.new
   end
 
@@ -33,7 +34,7 @@ class ActionsController < ApplicationController
   def create
     action = Action.new(action_param)
     if(action.valid?)
-      @action_service.add_action action
+      @action_service.save_action action
       flash[:success] = 'La nouvelle action a été sauvegardée avec succès".'
     else
       flash[:error] = 'Les données fournies sont incorrectes.'
@@ -44,7 +45,11 @@ class ActionsController < ApplicationController
   # destruction call
   def destroy
     params.require(:id)
+    begin
     @action_service.delete_action params[:id]
+    rescue => e
+      p e.message
+    end
   end
 
   # strong parameter validation for action

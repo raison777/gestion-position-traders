@@ -32,7 +32,7 @@ class TradersController < ApplicationController
     trader = Trader.new(trader_param)
     if(trader.valid?)
       @trader_service.register_trader(trader)
-      flash[:sucess] = 'Le trader a été crée.'
+      flash[:success] = 'Le trader a été crée.'
     else
       flash[:error] = 'Les données fournies sont incorrectes.'
     end

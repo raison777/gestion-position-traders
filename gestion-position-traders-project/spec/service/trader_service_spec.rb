@@ -23,10 +23,8 @@ describe TraderService do
     expect(result.name).to eq(@default_trader_name)
   end
 
-  it 'get the agregateSum for the test trader' do
-    trader = @trader_service.find_by_name('TestTraderForTrade')
-    result = @trader_service.get_aggregate_sum(trader)
-    p result
+  it 'get the agregateSum for the traders' do
+    result = @trader_service.list_with_aggregate_sum
     expect(result).to_not be_nil
   end
 

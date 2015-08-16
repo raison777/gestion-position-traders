@@ -32,11 +32,20 @@ class TradesController < ApplicationController
   def create
     trade_form = TradeForm.new(trade_param)
     if(trade_form.valid?)
+      begin
       action = @action_service.find_by_name(trade_form.action_name)
       trader = @trader_service.find_by_name(trade_form.trader_name)
-      Trade.create!(:date=> Time.now, :quantity => trade_form.quantity,
-                        :price => trade_form.price, :action_id => action.id, :trader_id => trader.id)
+      Trade.create(:date=> Time.now, :quantity => trade_form.quantity,
+                    :price => trade_form.price, :action_id => action.id, :trader_id => trader.id)
       flash[:success] = 'La nouvelle transaction a été sauvegardée avec succès".'
+      rescue ActionNotFoundError => anfe
+        flash[:error] = 'L\'action que vous avez indiquée n\'existe pas.'
+        anfe.backtrace
+      rescue TraderNotFoundError => tnfe
+        flash[:error] = 'Le trader que vous avez renseigné n\'existe pas.'
+        tnfe.backtrace
+      end
+
     else
       flash[:error] = 'Les données fournies sont incorrectes.'
     end
@@ -53,4 +62,27 @@ class TradesController < ApplicationController
   def trade_param
     params.require(:trade).permit(:trader_name, :action_name, :quantity, :price)
   end
+
+  def autocomplete_trader
+    if params[:term]
+      @auto_traders = @trader_service.suggest(params[:term])
+    end
+
+    respond_to do |format|
+      format.html {render nothing: true}
+      format.json {render :json => @auto_traders.to_json}
+    end
+  end
+
+  def autocomplete_action
+    if params[:term]
+      @auto_action = @action_service.suggest(params[:term])
+    end
+
+    respond_to do |format|
+      format.html {render nothing: true}
+      format.json {render :json => @auto_action.to_json}
+    end
+  end
+
 end

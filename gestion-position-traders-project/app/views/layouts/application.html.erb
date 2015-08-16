@@ -7,6 +7,15 @@
   <title>Gestion de transactions</title>
 </head>
 <body>
+  <header>
+    <h1>Gestionnaire de transaction</h1>
+    <nav>
+      <%= link_to :controller => :traders, :action=> :index do -%><b>Traders</b><% end %>&nbsp;|&nbsp;
+      <%= link_to :controller => :actions, :action=> :index do -%><b>Actions</b><% end %>&nbsp;|&nbsp;
+      <%= link_to :controller => :trades, :action=>:index do -%><b>Transactions</b><% end %>
+    </nav>
+
+  </header>
 
 <%= yield %>
 

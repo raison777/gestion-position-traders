@@ -9,7 +9,7 @@ describe ActionService do
   end
 
   it 'persist an action object in DB' do
-    result = @action_service.add_action(Action.new(:name=>'RspecAction'))
+    result = @action_service.save_action(Action.new(:name=>'RspecAction'))
     expect(result).to_not be_nil
   end
 
@@ -29,12 +29,12 @@ describe ActionService do
     result = @action_service.find_by_name(@default_action_name)
     expect(result.name).to eq(@default_action_name)
     result.name = upd_name
-    updatedResult = @action_service.update_action result
+    updatedResult = @action_service.save_action result
     expect(updatedResult).to be_truthy
     result = @action_service.find_by_name(upd_name)
     expect(result.name).to eq(upd_name)
     result.name = @default_action_name
-    updatedResult = @action_service.update_action result
+    updatedResult = @action_service.save_action result
     expect(updatedResult).to be_truthy
   end
 end
