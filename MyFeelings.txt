@@ -19,18 +19,12 @@ Il faudra que je réfléchisse pour voir si ce type de service est envisageable.
 Habituellement, j'utilise massivement l'ISP, cependant, aucun mécanisme ruby semble obligée un classe héritant d'une autre (ou incluant un module) à redéfinir les méthodes de la classe parente.
 L'ISP semble donc avoir une place plus mince. 
 
-
-
-# Calcul de la somme agrégée
-Pour ce calcul, je voulais décharger le programme et laisser le SGBD s'en occupper en tant que champ calculé. Toutefois il semblerait que ce n'est pas possible dans SQLite. Je vais donc probablement le déporter dans le modèle. C'est embêtant car le tri va également devoir être fait côté logiciel, ce qui n'est pas optimal.
-
 # Le TDD
 Pour ce projet j'utilise le TDD, mon développement apparaît vraiment guidé par mes tests, j'ai hâte de voir si à la fin le TDD aura prévenu les écarts et les bugs les plus importants.
+-EDIT En définitive, il m'aura bien servi pour toute la partie back-end. Il faut tout de même que je me penche d'avantage dessus afin d'écrire des tests plus fiables et plus précis.
 
-# Ce qu'il reste à faire
-Je plannifie ici la suite de mes actions :
-- appréhender et mettre en place des formulaires pour l'ajout/modification d'entités
-- vérifier les meilleures pratiques en termes de validation.
-- apporter un léger côté estéthique avec CSS
-- Gestion des exceptions
-- Refactoring & Optimisations
+# Les formulaires
+A l'instar de ce que propose Spring en Java, j'ai opté pour la mise en place d'objet model Ruby pour contenir l'information d'un formulaire, ce qui me permet d'exercer une validation performante.
+
+# Gestion des erreurs
+Il est possible de crée ses propres erreurs pour prévenir de comportement indésirables propres à notre solution.
