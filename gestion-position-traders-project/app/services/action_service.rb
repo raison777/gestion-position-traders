@@ -24,6 +24,7 @@ class ActionService
   end
 
   def suggest term
-    Action.select(:id, :name).where('traders.name LIKE ?', term + '%')
   end
+
+  deprecate :save_action, :find_all, :find_by_name, :delete_action, :suggest
 end

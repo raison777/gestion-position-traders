@@ -8,11 +8,11 @@
     <% @lines.each do |t| -%>
         <tr>
           <td>
-            <%= link_to action: 'show', id: t[0] do -%><b><%= t[1] %></b><% end %>
+            <%= link_to action: 'show', id: t[:id] do -%><b><%= t[:name] %></b><% end %>
           </td>
           <td>
-            <%    if !t[2].nil? %>
-                <span><%=t[2] %>€</span>
+            <%    if !t[:aggregate_sum].nil? %>
+                <span><%=t[:aggregate_sum] %>€</span>
             <%    else %>
                 <span> aucune vente effectuée </span>
             <%    end %>

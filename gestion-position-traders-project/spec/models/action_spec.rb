@@ -6,6 +6,7 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  price      :float
 #
 
 require 'rails_helper'
@@ -14,6 +15,7 @@ describe Action do
   before(:each) do
     @actionTest = Action.new()
     @actionTest.name = :MSmotors
+    @actionTest.price = 123.5
     @badAction = Action.new()
     @badAction.name = ''
   end

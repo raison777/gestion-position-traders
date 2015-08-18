@@ -1,23 +1,18 @@
 # encoding: utf-8
 class TradersController < ApplicationController
 
-  def initialize
-    super()
-    @trader_service = TraderService.new
-    @trade_service = TradeService.new
-  end
 
   # listing all traders with agreggate sum of sold trades
   def index
-    @lines = @trader_service.list_with_aggregate_sum
+    @lines = Trader.list_with_agg_sum
   end
 
   # provide details on one trader
   def show
     params.require(:id)
     if(params[:id].to_i > 0)
-      @trader = @trader_service.find(params[:id].to_i)
-      @sells = @trade_service.trades_for_trader(@trader)
+      @trader = Trader.find(params[:id].to_i)
+      @sells = @trader.trades.order(:date)
     else
       redirect_to action: :index
     end
@@ -31,7 +26,7 @@ class TradersController < ApplicationController
   def create
     trader = Trader.new(trader_param)
     if(trader.valid?)
-      @trader_service.register_trader(trader)
+      trader.save
       flash[:success] = 'Le trader a été crée.'
     else
       flash[:error] = 'Les données fournies sont incorrectes.'
@@ -42,7 +37,7 @@ class TradersController < ApplicationController
   # provide form for editing
   def edit
     if(params[:id].is_a? Integer && params[:id] > 0)
-      @trader = @trader_service.find(param[:id])
+      @trader = Trader.find(param[:id])
     elsif
     redirect_to action: :list
     end
@@ -50,8 +45,9 @@ class TradersController < ApplicationController
 
   # edit post
   def update
-    if params[:trader].is_a? Trader
-      @trader_service.update_trader(params[:trader])
+    trader = params[:trader]
+    if (trader.is_a? Trader) && trader.valid?
+      trader.save
     end
     redirect_to show, :id => params[:trader].id
   end
@@ -59,7 +55,10 @@ class TradersController < ApplicationController
   # destruction of a trader with its id
   def destroy
     params.require(:id)
-    @trader_service.delete_trader(params[:id])
+    trader = Trader.find(id)
+    if(trader.valid?)
+      trader.destroy
+    end
     redirect_to action: :list
   end
 

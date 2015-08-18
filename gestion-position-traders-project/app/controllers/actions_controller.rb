@@ -1,14 +1,9 @@
 # encoding: utf-8
 class ActionsController < ApplicationController
 
-  def initialize
-    super()
-    @action_service = ActionService.new
-  end
-
   # default listing action
   def index
-    @actions = @action_service.find_all
+    @actions = Action.all
   end
 
   # detail action
@@ -33,8 +28,9 @@ class ActionsController < ApplicationController
   # creation action
   def create
     action = Action.new(action_param)
+    p action
     if(action.valid?)
-      @action_service.save_action action
+      action.save
       flash[:success] = 'La nouvelle action a été sauvegardée avec succès".'
     else
       flash[:error] = 'Les données fournies sont incorrectes.'
@@ -45,15 +41,14 @@ class ActionsController < ApplicationController
   # destruction call
   def destroy
     params.require(:id)
-    begin
-    @action_service.delete_action params[:id]
-    rescue => e
-      p e.message
+    action = Action.find(params[:id])
+    if(action.valid?)
+      action.destroy
     end
   end
 
   # strong parameter validation for action
   def action_param
-    params.require(:act_item).permit(:id, :name)
+    params.require(:act_item).permit(:id, :name, :price)
   end
 end

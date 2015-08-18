@@ -1,15 +1,8 @@
 # encoding: utf-8
 class TradesController < ApplicationController
-  def initialize
-    super()
-    @trades_service = TradeService.new
-    @action_service = ActionService.new
-    @trader_service = TraderService.new
-  end
-
   # listing
   def index
-    @trades = @trades_service.find_all
+    @trades = Trade.list
   end
 
   def edit
@@ -33,10 +26,10 @@ class TradesController < ApplicationController
     trade_form = TradeForm.new(trade_param)
     if(trade_form.valid?)
       begin
-      action = @action_service.find_by_name(trade_form.action_name)
-      trader = @trader_service.find_by_name(trade_form.trader_name)
+      action = Action.find_by(:name=>trade_form.action_name)
+      trader = Trader.find_by(:name=>trade_form.trader_name)
       Trade.create(:date=> Time.now, :quantity => trade_form.quantity,
-                    :price => trade_form.price, :action_id => action.id, :trader_id => trader.id)
+                    :action_id => action.id, :trader_id => trader.id)
       flash[:success] = 'La nouvelle transaction a été sauvegardée avec succès".'
       rescue ActionNotFoundError => anfe
         flash[:error] = 'L\'action que vous avez indiquée n\'existe pas.'
@@ -55,7 +48,7 @@ class TradesController < ApplicationController
   # destruction with id
   def delete
     params.require(:id)
-    @trades_service.delete_trade params[:id]
+    Trade.find(params[:id]).destroy
   end
 
   # string parameter validation
@@ -65,7 +58,7 @@ class TradesController < ApplicationController
 
   def autocomplete_trader
     if params[:term]
-      @auto_traders = @trader_service.suggest(params[:term])
+      @auto_traders = Trader.suggest(params[:term])
     end
 
     respond_to do |format|
@@ -76,7 +69,7 @@ class TradesController < ApplicationController
 
   def autocomplete_action
     if params[:term]
-      @auto_action = @action_service.suggest(params[:term])
+      @auto_action = Action.suggest(params[:term])
     end
 
     respond_to do |format|

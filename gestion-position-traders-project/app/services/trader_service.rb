@@ -44,4 +44,6 @@ class TraderService
     Trader.select(:id, :name).where('traders.name LIKE ?', term + '%')
   end
 
+  deprecate :suggest, :find_all, :find, :delete_trader, :register_trader, :update_trader
+
 end

@@ -9,7 +9,6 @@
 #  updated_at :datetime         not null
 #  trader_id  :integer
 #  action_id  :integer
-#  price      :float
 #
 
 require 'rails_helper'
@@ -21,7 +20,6 @@ describe Trade do
     @transactionTest.date = Time.now()
     @transactionTest.trader = Trader.new()
     @transactionTest.action = Action.new()
-    @transactionTest.price = 120.5
   end
 
   it 'Create an Action object' do
@@ -29,6 +27,5 @@ describe Trade do
     expect(@transactionTest.quantity).to be(5)
     expect(@transactionTest.trader).to_not be_nil
     expect(@transactionTest.action).to_not be_nil
-    expect(@transactionTest.price).to_not be_nil
   end
 end
