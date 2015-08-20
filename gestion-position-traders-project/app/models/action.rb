@@ -6,7 +6,6 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  price      :float
 #
 
 class Action < ActiveRecord::Base
@@ -17,11 +16,4 @@ class Action < ActiveRecord::Base
   validates :name, presence: true,
             :length => {:minimum => 3, :maximum => 140},
             :uniqueness => true
-  validates :price, :numericality =>{:greater_than => 0}
-
-
-  def self.suggest(term)
-    Action.select(:id, :name).where('actions.name LIKE ?', term + '%')
-  end
-
 end

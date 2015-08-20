@@ -2,7 +2,7 @@
 class TradesController < ApplicationController
   # listing
   def index
-    @trades = Trade.list
+    @trades = Trade.all.joins(:trader, :action).reorder(:id).pluck(:id, :date, :quantity, :price, 'traders.name as trader_name', 'actions.name as action_name').map{|t| {:id=>t[0], :date=>t[1], :quantity=>t[2], :price=>t[3],:trader_name=>t[4], :action_name=>t[5]}}
   end
 
   def edit
@@ -28,8 +28,8 @@ class TradesController < ApplicationController
       begin
       action = Action.find_by(:name=>trade_form.action_name)
       trader = Trader.find_by(:name=>trade_form.trader_name)
-      Trade.create(:date=> Time.now, :quantity => trade_form.quantity,
-                    :action_id => action.id, :trader_id => trader.id)
+      Trade.create!(:date=> DateTime.current, :quantity => trade_form.quantity,
+                    :action_id => action.id, :trader_id => trader.id, :price => trade_form.price)
       flash[:success] = 'La nouvelle transaction a été sauvegardée avec succès".'
       rescue ActionNotFoundError => anfe
         flash[:error] = 'L\'action que vous avez indiquée n\'existe pas.'
@@ -38,7 +38,6 @@ class TradesController < ApplicationController
         flash[:error] = 'Le trader que vous avez renseigné n\'existe pas.'
         tnfe.backtrace
       end
-
     else
       flash[:error] = 'Les données fournies sont incorrectes.'
     end
@@ -55,27 +54,4 @@ class TradesController < ApplicationController
   def trade_param
     params.require(:trade).permit(:trader_name, :action_name, :quantity, :price)
   end
-
-  def autocomplete_trader
-    if params[:term]
-      @auto_traders = Trader.suggest(params[:term])
-    end
-
-    respond_to do |format|
-      format.html {render nothing: true}
-      format.json {render :json => @auto_traders.to_json}
-    end
-  end
-
-  def autocomplete_action
-    if params[:term]
-      @auto_action = Action.suggest(params[:term])
-    end
-
-    respond_to do |format|
-      format.html {render nothing: true}
-      format.json {render :json => @auto_action.to_json}
-    end
-  end
-
 end

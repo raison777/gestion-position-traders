@@ -4,7 +4,7 @@ class TradersController < ApplicationController
 
   # listing all traders with agreggate sum of sold trades
   def index
-    @lines = Trader.list_with_agg_sum
+    @lines = Trader.all.map{|t| {:id => t.id, :name => t.name, :aggregate_sum=> t.aggregate_sum}}
   end
 
   # provide details on one trader
@@ -65,6 +65,18 @@ class TradersController < ApplicationController
   #strong parameters validation for trader
   def trader_param
     params.require(:trader).permit(:id, :name)
+  end
+
+
+  def autocomplete
+    if params[:term]
+      @auto_traders = Trader.select(:id, :name).where('traders.name LIKE ?', params[:term] + '%')
+    end
+
+    respond_to do |format|
+      format.html {render nothing: true}
+      format.json {render :json => @auto_traders.to_json}
+    end
   end
 
 end

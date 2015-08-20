@@ -49,6 +49,17 @@ class ActionsController < ApplicationController
 
   # strong parameter validation for action
   def action_param
-    params.require(:act_item).permit(:id, :name, :price)
+    params.require(:act_item).permit(:id, :name)
+  end
+
+  def autocomplete
+    if params[:term]
+      @auto_action = Action.select(:id, :name).where('actions.name LIKE ?', params[:term] + '%')
+    end
+
+    respond_to do |format|
+      format.html {render nothing: true}
+      format.json {render :json => @auto_action.to_json}
+    end
   end
 end

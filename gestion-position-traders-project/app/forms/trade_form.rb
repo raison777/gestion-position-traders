@@ -5,5 +5,6 @@ class TradeForm
   validates :trader_name, presence: true
   validates :action_name, presence: true
   validates :quantity, :numericality =>{:greater_than => 0}
+  validates :price, :numericality =>{:greater_than => 0}
 
 end

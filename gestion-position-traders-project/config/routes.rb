@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   end
 
   # Autocomplete
-  get 'trades/autocomplete/trader', to: 'trades#autocomplete_trader'
-  get 'trades/autocomplete/action', to: 'trades#autocomplete_action'
+  get 'trader/autocomplete', to: 'traders#autocomplete'
+  get 'action/autocomplete', to: 'actions#autocomplete'
 end

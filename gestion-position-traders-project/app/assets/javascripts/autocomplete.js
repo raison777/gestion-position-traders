@@ -21,6 +21,6 @@ addAutocompletion = function(el, url){
 }
 
 $(document).ready(function () {
-    addAutocompletion($('.auto-trader'), "/trades/autocomplete/trader.json");
-    addAutocompletion($('.auto-action'), "/trades/autocomplete/action.json");
+    addAutocompletion($('.auto-trader'), "/trader/autocomplete.json");
+    addAutocompletion($('.auto-action'), "/action/autocomplete.json");
 });
